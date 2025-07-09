@@ -1,0 +1,28 @@
+{
+    "apps": [
+        {
+            "name": "Steam",
+            "output": "Steam",
+            "cmd": "DISPLAY=:0 steam",
+            "working-dir": "/home/gamer",
+            "image-path": "/usr/share/pixmaps/steam.png",
+            "auto-detach": false
+        },
+        {
+            "name": "Desktop",
+            "output": "Desktop",
+            "cmd": "DISPLAY=:0 xfce4-session",
+            "working-dir": "/home/gamer",
+            "image-path": "/usr/share/pixmaps/xfce4-logo.png",
+            "auto-detach": false
+        },
+        {
+            "name": "Lutris",
+            "output": "Lutris",
+            "cmd": "DISPLAY=:0 lutris",
+            "working-dir": "/home/gamer",
+            "image-path": "/usr/share/pixmaps/lutris.png",
+            "auto-detach": false
+        }
+    ]
+}

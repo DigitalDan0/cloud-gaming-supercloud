@@ -1,0 +1,63 @@
+---
+version: "2.0"
+
+services:
+  sunshine:
+    image: ghcr.io/your-org/cloud-gaming-sunshine:latest
+    expose:
+      - port: 47984
+        as: 47984
+        proto: tcp
+        to:
+          - global: true
+      - port: 47989
+        as: 47989
+        proto: udp
+        to:
+          - global: true
+      - port: 47990
+        as: 47990
+        proto: tcp
+        to:
+          - global: false
+    env:
+      - "NVIDIA_VISIBLE_DEVICES=all"
+      - "NVIDIA_DRIVER_CAPABILITIES=all"
+      - "DISPLAY=:0"
+
+profiles:
+  compute:
+    sunshine:
+      resources:
+        cpu:
+          units: 4
+        memory:
+          size: 16Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: "*"
+        storage:
+          size: 100Gi
+        endpoints:
+          - kind: ip
+
+  placement:
+    dcloud:
+      attributes:
+        region: us-central
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        sunshine:
+          denom: uakt
+          amount: 5000
+
+deployment:
+  sunshine:
+    dcloud:
+      profile: compute
+      count: 1

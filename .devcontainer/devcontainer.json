@@ -1,0 +1,53 @@
+{
+  "name": "Cloud Gaming Development",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.pylint",
+        "ms-python.black-formatter",
+        "ms-toolsai.jupyter",
+        "ms-vscode.vscode-docker",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "sudo service docker start",
+  "forwardPorts": [8000, 47984, 47989],
+  "portsAttributes": {
+    "8000": {
+      "label": "Broker API",
+      "onAutoForward": "notify"
+    },
+    "47984": {
+      "label": "Sunshine TCP",
+      "onAutoForward": "silent"
+    },
+    "47989": {
+      "label": "Sunshine UDP",
+      "onAutoForward": "silent"
+    }
+  },
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "runArgs": [
+    "--privileged"
+  ]
+}
