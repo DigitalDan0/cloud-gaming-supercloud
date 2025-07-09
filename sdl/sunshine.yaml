@@ -3,7 +3,7 @@ version: "2.0"
 
 services:
   sunshine:
-    image: ghcr.io/your-org/cloud-gaming-sunshine:latest
+    image: ghcr.io/digitaldan0/cloud-gaming-supercloud/sunshine:latest
     expose:
       - port: 47984
         as: 47984
